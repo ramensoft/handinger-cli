@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0 (2026-04-30)
+
+Full Changelog: [v0.3.2...v0.4.0](https://github.com/Ramensoft/handinger-cli/compare/v0.3.2...v0.4.0)
+
+### Features
+
+* support passing path and query params over stdin ([0e40294](https://github.com/Ramensoft/handinger-cli/commit/0e40294e2810e7c8f735c5435db5e86605cec98e))
+
 ## 0.3.2 (2026-04-30)
 
 Full Changelog: [v0.3.1...v0.3.2](https://github.com/Ramensoft/handinger-cli/compare/v0.3.1...v0.3.2)
