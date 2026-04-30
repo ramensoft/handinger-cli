@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.2 (2026-04-30)
+
+Full Changelog: [v0.3.1...v0.3.2](https://github.com/Ramensoft/handinger-cli/compare/v0.3.1...v0.3.2)
+
+### Bug Fixes
+
+* flags for nullable body scalar fields are strictly typed ([3645c33](https://github.com/Ramensoft/handinger-cli/commit/3645c33c147326e90f1e3482b9f46b3f22f0bac0))
+
 ## 0.3.1 (2026-04-30)
 
 Full Changelog: [v0.3.0...v0.3.1](https://github.com/Ramensoft/handinger-cli/compare/v0.3.0...v0.3.1)
