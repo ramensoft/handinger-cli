@@ -48,9 +48,10 @@ handinger [resource] <command> [flags...]
 ```
 
 ```sh
-handinger workers create \
+handinger tasks create \
   --api-key 'My API Key' \
-  --input "What's the weather today in Barcelona?"
+  --title 'Brand voice analyzer' \
+  --worker-id t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM
 ```
 
 For details about specific commands, use the `--help` flag.

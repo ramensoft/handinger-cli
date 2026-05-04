@@ -91,7 +91,6 @@ func init() {
 				Commands: []*cli.Command{
 					&workersCreate,
 					&workersRetrieve,
-					&workersContinue,
 					&workersRetrieveEmail,
 				},
 			},
@@ -103,6 +102,15 @@ func init() {
 					&workersSchedulesCreate,
 					&workersSchedulesList,
 					&workersSchedulesCancel,
+				},
+			},
+			{
+				Name:     "tasks",
+				Category: "API RESOURCE",
+				Suggest:  true,
+				Commands: []*cli.Command{
+					&tasksCreate,
+					&tasksRetrieve,
 				},
 			},
 			{

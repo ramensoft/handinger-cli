@@ -16,24 +16,23 @@ import (
 
 var workersCreate = cli.Command{
 	Name:    "create",
-	Usage:   "Create a new agent worker and start it with the supplied instruction. Send\n`multipart/form-data` to attach files alongside the instruction; the bytes are\nbootstrapped into the worker's workspace before the first turn.",
+	Usage:   "Create a new worker. The worker is a reusable agent template; tasks are runs\nagainst this template. Use `POST /tasks` to actually run the agent.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "input",
+			Name:     "title",
 			Required: true,
-			BodyPath: "input",
+			BodyPath: "title",
 		},
 		&requestflag.Flag[string]{
-			Name:     "budget",
-			Usage:    `Allowed values: "low", "standard", "high", "unlimited".`,
-			Default:  "standard",
-			BodyPath: "budget",
+			Name:     "instructions",
+			Usage:    "Persistent system prompt the worker uses for every task it runs.",
+			BodyPath: "instructions",
 		},
-		&requestflag.Flag[bool]{
-			Name:     "stream",
-			Default:  false,
-			BodyPath: "stream",
+		&requestflag.Flag[string]{
+			Name:     "visibility",
+			Usage:    "`public` (default) is visible to all org members. `private` is only visible to invited members.",
+			BodyPath: "visibility",
 		},
 	},
 	Action:          handleWorkersCreate,
@@ -42,7 +41,7 @@ var workersCreate = cli.Command{
 
 var workersRetrieve = cli.Command{
 	Name:    "retrieve",
-	Usage:   "Retrieve the current worker state and messages. Returns a JSON worker object by\ndefault, or a server-sent event stream when `stream=true`.",
+	Usage:   "Retrieve the current worker state and messages from its most recent task.\nReturns a JSON worker object by default, or a server-sent event stream when\n`stream=true`.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
@@ -52,42 +51,11 @@ var workersRetrieve = cli.Command{
 		},
 		&requestflag.Flag[string]{
 			Name:      "stream",
-			Usage:     `Set to "true" to receive a server-sent event stream that replays all stored messages and then continues with live chunks from the active turn (if any) before closing.`,
+			Usage:     `Set to "true" to receive a server-sent event stream that replays all stored messages and then continues with live chunks from the active task (if any) before closing.`,
 			QueryPath: "stream",
 		},
 	},
 	Action:          handleWorkersRetrieve,
-	HideHelpCommand: true,
-}
-
-var workersContinue = cli.Command{
-	Name:    "continue",
-	Usage:   "Send another instruction to an existing worker. Send `multipart/form-data` to\nattach additional files; the bytes are bootstrapped into the worker's workspace\nbefore the next turn.",
-	Suggest: true,
-	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
-			Name:      "worker-id",
-			Required:  true,
-			PathParam: "workerId",
-		},
-		&requestflag.Flag[string]{
-			Name:     "input",
-			Required: true,
-			BodyPath: "input",
-		},
-		&requestflag.Flag[string]{
-			Name:     "budget",
-			Usage:    `Allowed values: "low", "standard", "high", "unlimited".`,
-			Default:  "standard",
-			BodyPath: "budget",
-		},
-		&requestflag.Flag[bool]{
-			Name:     "stream",
-			Default:  false,
-			BodyPath: "stream",
-		},
-	},
-	Action:          handleWorkersContinue,
 	HideHelpCommand: true,
 }
 
@@ -192,55 +160,6 @@ func handleWorkersRetrieve(ctx context.Context, cmd *cli.Command) error {
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
 		Title:          "workers retrieve",
-		Transform:      transform,
-	})
-}
-
-func handleWorkersContinue(ctx context.Context, cmd *cli.Command) error {
-	client := handinger.NewClient(getDefaultRequestOptions(cmd)...)
-	unusedArgs := cmd.Args().Slice()
-	if !cmd.IsSet("worker-id") && len(unusedArgs) > 0 {
-		cmd.Set("worker-id", unusedArgs[0])
-		unusedArgs = unusedArgs[1:]
-	}
-	if len(unusedArgs) > 0 {
-		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
-	}
-
-	options, err := flagOptions(
-		cmd,
-		apiquery.NestedQueryFormatBrackets,
-		apiquery.ArrayQueryFormatComma,
-		ApplicationJSON,
-		false,
-	)
-	if err != nil {
-		return err
-	}
-
-	params := handinger.WorkerContinueParams{}
-
-	var res []byte
-	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Workers.Continue(
-		ctx,
-		cmd.Value("worker-id").(string),
-		params,
-		options...,
-	)
-	if err != nil {
-		return err
-	}
-
-	obj := gjson.ParseBytes(res)
-	format := cmd.Root().String("format")
-	explicitFormat := cmd.Root().IsSet("format")
-	transform := cmd.Root().String("transform")
-	return ShowJSON(obj, ShowJSONOpts{
-		ExplicitFormat: explicitFormat,
-		Format:         format,
-		RawOutput:      cmd.Root().Bool("raw-output"),
-		Title:          "workers continue",
 		Transform:      transform,
 	})
 }

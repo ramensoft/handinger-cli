@@ -8,14 +8,15 @@ import (
 	"github.com/Ramensoft/handinger-cli/internal/mocktest"
 )
 
-func TestWorkersCreate(t *testing.T) {
+func TestTasksCreate(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"workers", "create",
+			"tasks", "create",
 			"--title", "Brand voice analyzer",
+			"--worker-id", "t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
 			"--instructions", "instructions",
 			"--visibility", "public",
 		)
@@ -25,37 +26,25 @@ func TestWorkersCreate(t *testing.T) {
 		// Test piping YAML data over stdin
 		pipeData := []byte("" +
 			"title: Brand voice analyzer\n" +
+			"workerId: t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM\n" +
 			"instructions: instructions\n" +
 			"visibility: public\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
-			"workers", "create",
+			"tasks", "create",
 		)
 	})
 }
 
-func TestWorkersRetrieve(t *testing.T) {
+func TestTasksRetrieve(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
 			t,
 			"--api-key", "string",
-			"workers", "retrieve",
-			"--worker-id", "t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
-			"--stream", "true",
-		)
-	})
-}
-
-func TestWorkersRetrieveEmail(t *testing.T) {
-	t.Skip("Mock server tests are disabled")
-	t.Run("regular flags", func(t *testing.T) {
-		mocktest.TestRunMockTestWithFlags(
-			t,
-			"--api-key", "string",
-			"workers", "retrieve-email",
-			"--worker-id", "t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
+			"tasks", "retrieve",
+			"--task-id", "tsk_01HZY31W2SZJ8MJ2FQTR3M1K9D",
 		)
 	})
 }

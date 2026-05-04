@@ -1,0 +1,144 @@
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+package cmd
+
+import (
+	"context"
+	"fmt"
+
+	"github.com/Ramensoft/handinger-cli/internal/apiquery"
+	"github.com/Ramensoft/handinger-cli/internal/requestflag"
+	"github.com/Ramensoft/handinger-go"
+	"github.com/Ramensoft/handinger-go/option"
+	"github.com/tidwall/gjson"
+	"github.com/urfave/cli/v3"
+)
+
+var tasksCreate = cli.Command{
+	Name:    "create",
+	Usage:   "Run a new task against an existing worker. Send `multipart/form-data` to attach\nfiles; the bytes are bootstrapped into the worker's workspace before the task\nstarts.",
+	Suggest: true,
+	Flags: []cli.Flag{
+		&requestflag.Flag[string]{
+			Name:     "title",
+			Required: true,
+			BodyPath: "title",
+		},
+		&requestflag.Flag[string]{
+			Name:     "worker-id",
+			Usage:    "Worker id the task belongs to.",
+			Required: true,
+			BodyPath: "workerId",
+		},
+		&requestflag.Flag[string]{
+			Name:     "instructions",
+			Usage:    "Persistent system prompt the worker uses for every task it runs.",
+			BodyPath: "instructions",
+		},
+		&requestflag.Flag[string]{
+			Name:     "visibility",
+			Usage:    "`public` (default) is visible to all org members. `private` is only visible to invited members.",
+			BodyPath: "visibility",
+		},
+	},
+	Action:          handleTasksCreate,
+	HideHelpCommand: true,
+}
+
+var tasksRetrieve = cli.Command{
+	Name:    "retrieve",
+	Usage:   "Retrieve a single task and its individual turns.",
+	Suggest: true,
+	Flags: []cli.Flag{
+		&requestflag.Flag[string]{
+			Name:      "task-id",
+			Required:  true,
+			PathParam: "taskId",
+		},
+	},
+	Action:          handleTasksRetrieve,
+	HideHelpCommand: true,
+}
+
+func handleTasksCreate(ctx context.Context, cmd *cli.Command) error {
+	client := handinger.NewClient(getDefaultRequestOptions(cmd)...)
+	unusedArgs := cmd.Args().Slice()
+
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
+
+	options, err := flagOptions(
+		cmd,
+		apiquery.NestedQueryFormatBrackets,
+		apiquery.ArrayQueryFormatComma,
+		ApplicationJSON,
+		false,
+	)
+	if err != nil {
+		return err
+	}
+
+	params := handinger.TaskNewParams{}
+
+	var res []byte
+	options = append(options, option.WithResponseBodyInto(&res))
+	_, err = client.Tasks.New(ctx, params, options...)
+	if err != nil {
+		return err
+	}
+
+	obj := gjson.ParseBytes(res)
+	format := cmd.Root().String("format")
+	explicitFormat := cmd.Root().IsSet("format")
+	transform := cmd.Root().String("transform")
+	return ShowJSON(obj, ShowJSONOpts{
+		ExplicitFormat: explicitFormat,
+		Format:         format,
+		RawOutput:      cmd.Root().Bool("raw-output"),
+		Title:          "tasks create",
+		Transform:      transform,
+	})
+}
+
+func handleTasksRetrieve(ctx context.Context, cmd *cli.Command) error {
+	client := handinger.NewClient(getDefaultRequestOptions(cmd)...)
+	unusedArgs := cmd.Args().Slice()
+	if !cmd.IsSet("task-id") && len(unusedArgs) > 0 {
+		cmd.Set("task-id", unusedArgs[0])
+		unusedArgs = unusedArgs[1:]
+	}
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
+
+	options, err := flagOptions(
+		cmd,
+		apiquery.NestedQueryFormatBrackets,
+		apiquery.ArrayQueryFormatComma,
+		EmptyBody,
+		false,
+	)
+	if err != nil {
+		return err
+	}
+
+	var res []byte
+	options = append(options, option.WithResponseBodyInto(&res))
+	_, err = client.Tasks.Get(ctx, cmd.Value("task-id").(string), options...)
+	if err != nil {
+		return err
+	}
+
+	obj := gjson.ParseBytes(res)
+	format := cmd.Root().String("format")
+	explicitFormat := cmd.Root().IsSet("format")
+	transform := cmd.Root().String("transform")
+	return ShowJSON(obj, ShowJSONOpts{
+		ExplicitFormat: explicitFormat,
+		Format:         format,
+		RawOutput:      cmd.Root().Bool("raw-output"),
+		Title:          "tasks retrieve",
+		Transform:      transform,
+	})
+}
