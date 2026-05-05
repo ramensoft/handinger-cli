@@ -17,6 +17,7 @@ func TestWorkersCreate(t *testing.T) {
 			"workers", "create",
 			"--title", "Brand voice analyzer",
 			"--instructions", "instructions",
+			"--prompt", "prompt",
 			"--visibility", "public",
 		)
 	})
@@ -26,6 +27,7 @@ func TestWorkersCreate(t *testing.T) {
 		pipeData := []byte("" +
 			"title: Brand voice analyzer\n" +
 			"instructions: instructions\n" +
+			"prompt: prompt\n" +
 			"visibility: public\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
