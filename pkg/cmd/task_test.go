@@ -18,6 +18,7 @@ func TestTasksCreate(t *testing.T) {
 			"--title", "Brand voice analyzer",
 			"--worker-id", "t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
 			"--instructions", "instructions",
+			"--prompt", "prompt",
 			"--visibility", "public",
 		)
 	})
@@ -28,6 +29,7 @@ func TestTasksCreate(t *testing.T) {
 			"title: Brand voice analyzer\n" +
 			"workerId: t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM\n" +
 			"instructions: instructions\n" +
+			"prompt: prompt\n" +
 			"visibility: public\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
