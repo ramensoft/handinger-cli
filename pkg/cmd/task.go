@@ -36,6 +36,11 @@ var tasksCreate = cli.Command{
 			BodyPath: "instructions",
 		},
 		&requestflag.Flag[string]{
+			Name:     "prompt",
+			Usage:    "Natural-language description of the worker to use for AI-generated instructions when `instructions` is omitted.",
+			BodyPath: "prompt",
+		},
+		&requestflag.Flag[string]{
 			Name:     "visibility",
 			Usage:    "`public` (default) is visible to all org members. `private` is only visible to invited members.",
 			BodyPath: "visibility",
