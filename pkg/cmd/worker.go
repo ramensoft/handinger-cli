@@ -20,11 +20,6 @@ var workersCreate = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "title",
-			Required: true,
-			BodyPath: "title",
-		},
-		&requestflag.Flag[string]{
 			Name:     "instructions",
 			Usage:    "Persistent system prompt the worker uses for every task it runs.",
 			BodyPath: "instructions",
@@ -33,6 +28,11 @@ var workersCreate = cli.Command{
 			Name:     "prompt",
 			Usage:    "Natural-language description of the worker to use for AI-generated instructions when `instructions` is omitted.",
 			BodyPath: "prompt",
+		},
+		&requestflag.Flag[string]{
+			Name:     "title",
+			Usage:    "Optional display name. When omitted, Handinger assigns a random dog-themed name.",
+			BodyPath: "title",
 		},
 		&requestflag.Flag[string]{
 			Name:     "visibility",

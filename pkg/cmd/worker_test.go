@@ -15,9 +15,9 @@ func TestWorkersCreate(t *testing.T) {
 			t,
 			"--api-key", "string",
 			"workers", "create",
-			"--title", "Brand voice analyzer",
 			"--instructions", "instructions",
 			"--prompt", "prompt",
+			"--title", "Brand voice analyzer",
 			"--visibility", "public",
 		)
 	})
@@ -25,9 +25,9 @@ func TestWorkersCreate(t *testing.T) {
 	t.Run("piping data", func(t *testing.T) {
 		// Test piping YAML data over stdin
 		pipeData := []byte("" +
-			"title: Brand voice analyzer\n" +
 			"instructions: instructions\n" +
 			"prompt: prompt\n" +
+			"title: Brand voice analyzer\n" +
 			"visibility: public\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,

@@ -50,7 +50,6 @@ handinger [resource] <command> [flags...]
 ```sh
 handinger tasks create \
   --api-key 'My API Key' \
-  --title 'Brand voice analyzer' \
   --worker-id t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM
 ```
 
