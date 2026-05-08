@@ -17,6 +17,7 @@ func TestTasksCreate(t *testing.T) {
 			"tasks", "create",
 			"--worker-id", "t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
 			"--instructions", "instructions",
+			"--output-schema", "{foo: bar}",
 			"--prompt", "prompt",
 			"--title", "Brand voice analyzer",
 			"--visibility", "public",
@@ -28,6 +29,8 @@ func TestTasksCreate(t *testing.T) {
 		pipeData := []byte("" +
 			"workerId: t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM\n" +
 			"instructions: instructions\n" +
+			"outputSchema:\n" +
+			"  foo: bar\n" +
 			"prompt: prompt\n" +
 			"title: Brand voice analyzer\n" +
 			"visibility: public\n")

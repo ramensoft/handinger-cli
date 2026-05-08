@@ -1,5 +1,5 @@
-github.com/Ramensoft/handinger-go v0.4.1 h1:alb+62UKsw4/53T6DpWS2zRAkKqoU5KiSvAD1/6FyQs=
-github.com/Ramensoft/handinger-go v0.4.1/go.mod h1:BL22UCFFcva73LcyDc1NvfZbVjGVO5Tg1wRQPir0vFY=
+github.com/Ramensoft/handinger-go v0.5.0 h1:VLbhho0BEDH0NC4rmaiDzfn9I74YOqCfAm4Xwvw+oDc=
+github.com/Ramensoft/handinger-go v0.5.0/go.mod h1:BL22UCFFcva73LcyDc1NvfZbVjGVO5Tg1wRQPir0vFY=
 github.com/aymanbagabas/go-osc52/v2 v2.0.1 h1:HwpRHbFMcZLEVr42D4p7XBqjyuxQH5SMiErDT4WkJ2k=
 github.com/aymanbagabas/go-osc52/v2 v2.0.1/go.mod h1:uYgXzlJ7ZpABp8OJ+exZzJJhRNQ2ASbcXHWsFqH8hp8=
 github.com/aymanbagabas/go-udiff v0.2.0 h1:TK0fH4MteXUDspT88n8CKzvK0X9O2xu9yQjWpi6yML8=

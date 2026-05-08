@@ -16,6 +16,7 @@ func TestWorkersCreate(t *testing.T) {
 			"--api-key", "string",
 			"workers", "create",
 			"--instructions", "instructions",
+			"--output-schema", "{foo: bar}",
 			"--prompt", "prompt",
 			"--title", "Brand voice analyzer",
 			"--visibility", "public",
@@ -26,6 +27,8 @@ func TestWorkersCreate(t *testing.T) {
 		// Test piping YAML data over stdin
 		pipeData := []byte("" +
 			"instructions: instructions\n" +
+			"outputSchema:\n" +
+			"  foo: bar\n" +
 			"prompt: prompt\n" +
 			"title: Brand voice analyzer\n" +
 			"visibility: public\n")

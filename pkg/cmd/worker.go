@@ -24,6 +24,11 @@ var workersCreate = cli.Command{
 			Usage:    "Persistent system prompt the worker uses for every task it runs.",
 			BodyPath: "instructions",
 		},
+		&requestflag.Flag[map[string]any]{
+			Name:     "output-schema",
+			Usage:    "Optional JSON Schema (Draft-07) describing the structured object the worker must produce. When set, every task response is validated against the schema and exposed as `structuredOutput`.",
+			BodyPath: "outputSchema",
+		},
 		&requestflag.Flag[string]{
 			Name:     "prompt",
 			Usage:    "Natural-language description of the worker to use for AI-generated instructions when `instructions` is omitted.",
