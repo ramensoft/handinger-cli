@@ -35,6 +35,11 @@ var workersCreate = cli.Command{
 			BodyPath: "prompt",
 		},
 		&requestflag.Flag[string]{
+			Name:     "summary",
+			Usage:    "Short one-line description of the worker's purpose. Auto-generated when omitted and a `prompt` is provided.",
+			BodyPath: "summary",
+		},
+		&requestflag.Flag[string]{
 			Name:     "title",
 			Usage:    "Optional display name. When omitted, Handinger assigns a random dog-themed name.",
 			BodyPath: "title",

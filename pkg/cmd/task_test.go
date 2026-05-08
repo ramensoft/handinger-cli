@@ -19,6 +19,7 @@ func TestTasksCreate(t *testing.T) {
 			"--instructions", "instructions",
 			"--output-schema", "{foo: bar}",
 			"--prompt", "prompt",
+			"--summary", "summary",
 			"--title", "Brand voice analyzer",
 			"--visibility", "public",
 		)
@@ -32,6 +33,7 @@ func TestTasksCreate(t *testing.T) {
 			"outputSchema:\n" +
 			"  foo: bar\n" +
 			"prompt: prompt\n" +
+			"summary: summary\n" +
 			"title: Brand voice analyzer\n" +
 			"visibility: public\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
