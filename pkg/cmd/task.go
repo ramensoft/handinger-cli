@@ -46,6 +46,11 @@ var tasksCreate = cli.Command{
 			BodyPath: "summary",
 		},
 		&requestflag.Flag[string]{
+			Name:     "task-id",
+			Usage:    "Optional client-provided task id. Reuse this id to add turns to an existing task.",
+			BodyPath: "taskId",
+		},
+		&requestflag.Flag[string]{
 			Name:     "title",
 			Usage:    "Optional display name. When omitted, Handinger assigns a random dog-themed name.",
 			BodyPath: "title",
