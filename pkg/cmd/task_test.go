@@ -16,8 +16,8 @@ func TestTasksCreate(t *testing.T) {
 			"--api-key", "string",
 			"tasks", "create",
 			"--input", "What's the weather today in Barcelona?",
-			"--budget", "low",
-			"--stream=true",
+			"--budget", "standard",
+			"--stream=false",
 			"--task-id", "tsk_2Z-YWz3hFq6VlW",
 			"--worker-id", "wrk_vk81XUHKHG-qr4",
 		)
@@ -27,8 +27,8 @@ func TestTasksCreate(t *testing.T) {
 		// Test piping YAML data over stdin
 		pipeData := []byte("" +
 			"input: What's the weather today in Barcelona?\n" +
-			"budget: low\n" +
-			"stream: true\n" +
+			"budget: standard\n" +
+			"stream: false\n" +
 			"taskId: tsk_2Z-YWz3hFq6VlW\n" +
 			"workerId: wrk_vk81XUHKHG-qr4\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(

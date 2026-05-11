@@ -26,12 +26,13 @@ var tasksCreate = cli.Command{
 		},
 		&requestflag.Flag[string]{
 			Name:     "budget",
-			Usage:    `Allowed values: "low", "standard", "high", "unlimited".`,
+			Usage:    "Compute budget the worker is allowed to spend on the task. Defaults to `standard`.",
 			Default:  "standard",
 			BodyPath: "budget",
 		},
 		&requestflag.Flag[bool]{
 			Name:     "stream",
+			Usage:    "Stream the response as server-sent events instead of waiting for the final payload.",
 			Default:  false,
 			BodyPath: "stream",
 		},
