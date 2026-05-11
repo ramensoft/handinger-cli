@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.8.0 (2026-05-11)
+
+Full Changelog: [v0.7.0...v0.8.0](https://github.com/Ramensoft/handinger-cli/compare/v0.7.0...v0.8.0)
+
+### Features
+
+* Add update and delete endpoints for workers and tasks ([a6da417](https://github.com/Ramensoft/handinger-cli/commit/a6da4172289773b063372872c80f0180418002aa))
+* Duplicate workers ([020c047](https://github.com/Ramensoft/handinger-cli/commit/020c0474ada5da678f5be8c1b151f622dfb7d8c0))
+* Fix OpenAPI schema definitions for proper type handling ([e76402f](https://github.com/Ramensoft/handinger-cli/commit/e76402f55eb3a02ba5a593582b40a8bacbbd1d3d))
+
 ## 0.7.0 (2026-05-11)
 
 Full Changelog: [v0.6.0...v0.7.0](https://github.com/Ramensoft/handinger-cli/compare/v0.6.0...v0.7.0)
