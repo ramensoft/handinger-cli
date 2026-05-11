@@ -1,6 +1,6 @@
 # Handinger CLI
 
-The official CLI for the Handinger REST API.
+The official CLI for the [Handinger REST API](https://docs.handinger.com).
 
 It is generated with [Stainless](https://www.stainless.com/).
 
@@ -50,7 +50,7 @@ handinger [resource] <command> [flags...]
 ```sh
 handinger tasks create \
   --api-key 'My API Key' \
-  --worker-id t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM
+  --worker-id wrk_vk81XUHKHG-qr4
 ```
 
 For details about specific commands, use the `--help` flag.
