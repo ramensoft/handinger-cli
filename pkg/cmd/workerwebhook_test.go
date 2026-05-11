@@ -5,7 +5,7 @@ package cmd
 import (
 	"testing"
 
-	"github.com/Ramensoft/handinger-cli/internal/mocktest"
+	"github.com/ramensoft/handinger-cli/internal/mocktest"
 )
 
 func TestWorkersWebhooksRetrieve(t *testing.T) {

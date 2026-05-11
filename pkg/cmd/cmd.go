@@ -12,8 +12,8 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/Ramensoft/handinger-cli/internal/autocomplete"
-	"github.com/Ramensoft/handinger-cli/internal/requestflag"
+	"github.com/ramensoft/handinger-cli/internal/autocomplete"
+	"github.com/ramensoft/handinger-cli/internal/requestflag"
 	docs "github.com/urfave/cli-docs/v3"
 	"github.com/urfave/cli/v3"
 )

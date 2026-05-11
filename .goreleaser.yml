@@ -81,7 +81,7 @@ nfpms:
 homebrew_casks:
   - name: handinger
     repository:
-      owner: Ramensoft
+      owner: ramensoft
       name: homebrew-tools
       token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
     homepage: https://handinger.com

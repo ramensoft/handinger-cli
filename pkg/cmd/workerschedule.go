@@ -6,10 +6,10 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/Ramensoft/handinger-cli/internal/apiquery"
-	"github.com/Ramensoft/handinger-cli/internal/requestflag"
-	"github.com/Ramensoft/handinger-go"
-	"github.com/Ramensoft/handinger-go/option"
+	"github.com/ramensoft/handinger-cli/internal/apiquery"
+	"github.com/ramensoft/handinger-cli/internal/requestflag"
+	"github.com/ramensoft/handinger-go"
+	"github.com/ramensoft/handinger-go/option"
 	"github.com/tidwall/gjson"
 	"github.com/urfave/cli/v3"
 )

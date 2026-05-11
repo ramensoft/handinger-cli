@@ -15,7 +15,7 @@ on:
       - 'stl-preview-base/**'
 
 env:
-  GOPRIVATE: github.com/Ramensoft/handinger-go,github.com/stainless-sdks/handinger-go
+  GOPRIVATE: github.com/ramensoft/handinger-go,github.com/stainless-sdks/handinger-go
 
 jobs:
   lint:

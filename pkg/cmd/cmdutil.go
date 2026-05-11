@@ -16,8 +16,8 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/Ramensoft/handinger-cli/internal/jsonview"
-	"github.com/Ramensoft/handinger-go/option"
+	"github.com/ramensoft/handinger-cli/internal/jsonview"
+	"github.com/ramensoft/handinger-go/option"
 
 	"github.com/charmbracelet/x/term"
 	"github.com/itchyny/json2yaml"
