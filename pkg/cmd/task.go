@@ -20,12 +20,6 @@ var tasksCreate = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "worker-id",
-			Usage:    "Worker id the task belongs to.",
-			Required: true,
-			BodyPath: "workerId",
-		},
-		&requestflag.Flag[string]{
 			Name:     "instructions",
 			Usage:    "Persistent system prompt the worker uses for every task it runs.",
 			BodyPath: "instructions",
@@ -59,6 +53,11 @@ var tasksCreate = cli.Command{
 			Name:     "visibility",
 			Usage:    "`public` (default) is visible to all org members. `private` is only visible to invited members.",
 			BodyPath: "visibility",
+		},
+		&requestflag.Flag[string]{
+			Name:     "worker-id",
+			Usage:    "Worker id the task belongs to. If omitted, a new worker is created on-the-fly using the input as instructions.",
+			BodyPath: "workerId",
 		},
 	},
 	Action:          handleTasksCreate,

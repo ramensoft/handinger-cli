@@ -116,7 +116,7 @@ var workersUpdate = cli.Command{
 
 var workersDelete = cli.Command{
 	Name:    "delete",
-	Usage:   "Permanently delete a worker template along with its tasks, turns, files,\nschedules, and integrations. This action is not reversible. Only the worker\ncreator can delete a worker.",
+	Usage:   "Soft-delete a worker template so it no longer appears in list or retrieve\nendpoints. Tasks, turns, files, schedules, and integrations remain in the\ndatabase for analytics. Only the worker creator can delete a worker.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
