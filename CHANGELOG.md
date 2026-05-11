@@ -4,6 +4,14 @@
 
 Full Changelog: [v0.9.0...v0.9.1](https://github.com/Ramensoft/handinger-cli/compare/v0.9.0...v0.9.1)
 
+### Chores
+
+* remove custom code ([35ad197](https://github.com/Ramensoft/handinger-cli/commit/35ad197cdf567f004c712e6bf831ff5c49e9040a))
+
+## 0.9.1 (2026-05-11)
+
+Full Changelog: [v0.9.0...v0.9.1](https://github.com/Ramensoft/handinger-cli/compare/v0.9.0...v0.9.1)
+
 ## 0.9.0 (2026-05-11)
 
 Full Changelog: [v0.8.0...v0.9.0](https://github.com/Ramensoft/handinger-cli/compare/v0.8.0...v0.9.0)
