@@ -91,6 +91,8 @@ func init() {
 				Commands: []*cli.Command{
 					&workersCreate,
 					&workersRetrieve,
+					&workersUpdate,
+					&workersDelete,
 					&workersRetrieveEmail,
 				},
 			},
@@ -111,6 +113,7 @@ func init() {
 				Commands: []*cli.Command{
 					&tasksCreate,
 					&tasksRetrieve,
+					&tasksDelete,
 				},
 			},
 			{

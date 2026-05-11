@@ -74,6 +74,61 @@ var workersRetrieve = cli.Command{
 	HideHelpCommand: true,
 }
 
+var workersUpdate = cli.Command{
+	Name:    "update",
+	Usage:   "Update a worker's instructions, title, summary, visibility, or output schema.\nOnly the fields you send are changed; omitted fields keep their current values.\nOnly the worker creator can update a worker.",
+	Suggest: true,
+	Flags: []cli.Flag{
+		&requestflag.Flag[string]{
+			Name:      "worker-id",
+			Required:  true,
+			PathParam: "workerId",
+		},
+		&requestflag.Flag[string]{
+			Name:     "instructions",
+			Usage:    "Replaces the persistent system prompt. Subsequent tasks pick up the new instructions immediately; in-flight tasks keep using the previous version.",
+			BodyPath: "instructions",
+		},
+		&requestflag.Flag[map[string]any]{
+			Name:     "output-schema",
+			Usage:    "Replace the worker's structured output schema. Pass `null` to clear it and return to free-form text responses.",
+			BodyPath: "outputSchema",
+		},
+		&requestflag.Flag[string]{
+			Name:     "summary",
+			Usage:    "Replaces the worker's short one-line summary.",
+			BodyPath: "summary",
+		},
+		&requestflag.Flag[string]{
+			Name:     "title",
+			Usage:    "New display name for the worker.",
+			BodyPath: "title",
+		},
+		&requestflag.Flag[string]{
+			Name:     "visibility",
+			Usage:    "Change visibility between `public` (any org member can run tasks) and `private` (only invited members).",
+			BodyPath: "visibility",
+		},
+	},
+	Action:          handleWorkersUpdate,
+	HideHelpCommand: true,
+}
+
+var workersDelete = cli.Command{
+	Name:    "delete",
+	Usage:   "Permanently delete a worker template along with its tasks, turns, files,\nschedules, and integrations. This action is not reversible. Only the worker\ncreator can delete a worker.",
+	Suggest: true,
+	Flags: []cli.Flag{
+		&requestflag.Flag[string]{
+			Name:      "worker-id",
+			Required:  true,
+			PathParam: "workerId",
+		},
+	},
+	Action:          handleWorkersDelete,
+	HideHelpCommand: true,
+}
+
 var workersRetrieveEmail = cli.Command{
 	Name:    "retrieve-email",
 	Usage:   "Retrieve the inbound email address for a worker.",
@@ -175,6 +230,97 @@ func handleWorkersRetrieve(ctx context.Context, cmd *cli.Command) error {
 		Format:         format,
 		RawOutput:      cmd.Root().Bool("raw-output"),
 		Title:          "workers retrieve",
+		Transform:      transform,
+	})
+}
+
+func handleWorkersUpdate(ctx context.Context, cmd *cli.Command) error {
+	client := handinger.NewClient(getDefaultRequestOptions(cmd)...)
+	unusedArgs := cmd.Args().Slice()
+	if !cmd.IsSet("worker-id") && len(unusedArgs) > 0 {
+		cmd.Set("worker-id", unusedArgs[0])
+		unusedArgs = unusedArgs[1:]
+	}
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
+
+	options, err := flagOptions(
+		cmd,
+		apiquery.NestedQueryFormatBrackets,
+		apiquery.ArrayQueryFormatComma,
+		ApplicationJSON,
+		false,
+	)
+	if err != nil {
+		return err
+	}
+
+	params := handinger.WorkerUpdateParams{}
+
+	var res []byte
+	options = append(options, option.WithResponseBodyInto(&res))
+	_, err = client.Workers.Update(
+		ctx,
+		cmd.Value("worker-id").(string),
+		params,
+		options...,
+	)
+	if err != nil {
+		return err
+	}
+
+	obj := gjson.ParseBytes(res)
+	format := cmd.Root().String("format")
+	explicitFormat := cmd.Root().IsSet("format")
+	transform := cmd.Root().String("transform")
+	return ShowJSON(obj, ShowJSONOpts{
+		ExplicitFormat: explicitFormat,
+		Format:         format,
+		RawOutput:      cmd.Root().Bool("raw-output"),
+		Title:          "workers update",
+		Transform:      transform,
+	})
+}
+
+func handleWorkersDelete(ctx context.Context, cmd *cli.Command) error {
+	client := handinger.NewClient(getDefaultRequestOptions(cmd)...)
+	unusedArgs := cmd.Args().Slice()
+	if !cmd.IsSet("worker-id") && len(unusedArgs) > 0 {
+		cmd.Set("worker-id", unusedArgs[0])
+		unusedArgs = unusedArgs[1:]
+	}
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
+
+	options, err := flagOptions(
+		cmd,
+		apiquery.NestedQueryFormatBrackets,
+		apiquery.ArrayQueryFormatComma,
+		EmptyBody,
+		false,
+	)
+	if err != nil {
+		return err
+	}
+
+	var res []byte
+	options = append(options, option.WithResponseBodyInto(&res))
+	_, err = client.Workers.Delete(ctx, cmd.Value("worker-id").(string), options...)
+	if err != nil {
+		return err
+	}
+
+	obj := gjson.ParseBytes(res)
+	format := cmd.Root().String("format")
+	explicitFormat := cmd.Root().IsSet("format")
+	transform := cmd.Root().String("transform")
+	return ShowJSON(obj, ShowJSONOpts{
+		ExplicitFormat: explicitFormat,
+		Format:         format,
+		RawOutput:      cmd.Root().Bool("raw-output"),
+		Title:          "workers delete",
 		Transform:      transform,
 	})
 }
