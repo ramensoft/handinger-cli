@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.11.1 (2026-05-11)
+
+Full Changelog: [v0.11.0...v0.11.1](https://github.com/ramensoft/handinger-cli/compare/v0.11.0...v0.11.1)
+
+### Chores
+
+* update SDK settings ([04d2986](https://github.com/ramensoft/handinger-cli/commit/04d298636968cea6990d6727dda16863f3dea9d4))
+
 ## 0.11.0 (2026-05-11)
 
 Full Changelog: [v0.10.0...v0.11.0](https://github.com/ramensoft/handinger-cli/compare/v0.10.0...v0.11.0)
