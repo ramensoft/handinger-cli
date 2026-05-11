@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.13.0 (2026-05-11)
+
+Full Changelog: [v0.12.0...v0.13.0](https://github.com/ramensoft/handinger-cli/compare/v0.12.0...v0.13.0)
+
+### Features
+
+* **api:** api update ([df53f6a](https://github.com/ramensoft/handinger-cli/commit/df53f6abd80e38935ceb5f3c5484b392b3534e25))
+
 ## 0.12.0 (2026-05-11)
 
 Full Changelog: [v0.11.1...v0.12.0](https://github.com/ramensoft/handinger-cli/compare/v0.11.1...v0.12.0)
