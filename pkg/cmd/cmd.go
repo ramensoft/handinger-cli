@@ -107,6 +107,18 @@ func init() {
 				},
 			},
 			{
+				Name:     "workers:webhooks",
+				Category: "API RESOURCE",
+				Suggest:  true,
+				Commands: []*cli.Command{
+					&workersWebhooksRetrieve,
+					&workersWebhooksUpdate,
+					&workersWebhooksDelete,
+					&workersWebhooksListExecutions,
+					&workersWebhooksRegenerateToken,
+				},
+			},
+			{
 				Name:     "tasks",
 				Category: "API RESOURCE",
 				Suggest:  true,
