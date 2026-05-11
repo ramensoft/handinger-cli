@@ -78,3 +78,19 @@ nfpms:
     contents:
       - src: man/man1/*.1.gz
         dst: /usr/share/man/man1/
+homebrew_casks:
+  - name: handinger
+    repository:
+      owner: Ramensoft
+      name: homebrew-tools
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    homepage: https://handinger.com
+    description: The official CLI for Handinger.
+    license: Apache-2.0
+    binary: "handinger"
+    completions:
+      bash: "completions/handinger.bash"
+      zsh: "completions/handinger.zsh"
+      fish: "completions/handinger.fish"
+    manpages:
+    - man/man1/handinger.1.gz
