@@ -15,10 +15,10 @@ func TestWorkersCreate(t *testing.T) {
 			t,
 			"--api-key", "string",
 			"workers", "create",
-			"--instructions", "instructions",
-			"--output-schema", "{foo: bar}",
-			"--prompt", "prompt",
-			"--summary", "summary",
+			"--instructions", "You are a brand voice analyzer. Read the input text and report whether it matches Acme's playful, plain-spoken house style. Quote specific phrases.",
+			"--output-schema", "{type: bar, required: bar, properties: bar}",
+			"--prompt", "A worker that fact-checks short claims and returns a verdict with citations.",
+			"--summary", "Audits copy against the Acme brand voice guide.",
 			"--title", "Brand voice analyzer",
 			"--visibility", "public",
 		)
@@ -27,11 +27,15 @@ func TestWorkersCreate(t *testing.T) {
 	t.Run("piping data", func(t *testing.T) {
 		// Test piping YAML data over stdin
 		pipeData := []byte("" +
-			"instructions: instructions\n" +
+			"instructions: >-\n" +
+			"  You are a brand voice analyzer. Read the input text and report whether it\n" +
+			"  matches Acme's playful, plain-spoken house style. Quote specific phrases.\n" +
 			"outputSchema:\n" +
-			"  foo: bar\n" +
-			"prompt: prompt\n" +
-			"summary: summary\n" +
+			"  type: bar\n" +
+			"  required: bar\n" +
+			"  properties: bar\n" +
+			"prompt: A worker that fact-checks short claims and returns a verdict with citations.\n" +
+			"summary: Audits copy against the Acme brand voice guide.\n" +
 			"title: Brand voice analyzer\n" +
 			"visibility: public\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
@@ -63,23 +67,27 @@ func TestWorkersUpdate(t *testing.T) {
 			"--api-key", "string",
 			"workers", "update",
 			"--worker-id", "t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
-			"--instructions", "instructions",
-			"--output-schema", "{foo: bar}",
-			"--summary", "summary",
-			"--title", "Brand voice analyzer",
-			"--visibility", "public",
+			"--instructions", "You are a brand voice analyzer. Read the input text and report whether it matches Acme's playful, plain-spoken house style. Quote specific phrases.",
+			"--output-schema", "{type: bar, required: bar, properties: bar}",
+			"--summary", "Audits copy against the Acme brand voice guide.",
+			"--title", "Claim verdict v2",
+			"--visibility", "private",
 		)
 	})
 
 	t.Run("piping data", func(t *testing.T) {
 		// Test piping YAML data over stdin
 		pipeData := []byte("" +
-			"instructions: instructions\n" +
+			"instructions: >-\n" +
+			"  You are a brand voice analyzer. Read the input text and report whether it\n" +
+			"  matches Acme's playful, plain-spoken house style. Quote specific phrases.\n" +
 			"outputSchema:\n" +
-			"  foo: bar\n" +
-			"summary: summary\n" +
-			"title: Brand voice analyzer\n" +
-			"visibility: public\n")
+			"  type: bar\n" +
+			"  required: bar\n" +
+			"  properties: bar\n" +
+			"summary: Audits copy against the Acme brand voice guide.\n" +
+			"title: Claim verdict v2\n" +
+			"visibility: private\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
 			t, pipeData,
 			"--api-key", "string",
