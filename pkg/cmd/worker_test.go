@@ -54,7 +54,7 @@ func TestWorkersRetrieve(t *testing.T) {
 			"--api-key", "string",
 			"workers", "retrieve",
 			"--worker-id", "t_org_123_w_01HZY2ZJQ8G7K42W2D7WF6V4GM",
-			"--stream", "true",
+			"--task-id", "x",
 		)
 	})
 }

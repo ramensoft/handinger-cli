@@ -56,7 +56,7 @@ var workersCreate = cli.Command{
 
 var workersRetrieve = cli.Command{
 	Name:    "retrieve",
-	Usage:   "Retrieve the current worker state and messages from its most recent task.\nReturns a JSON worker object by default, or a server-sent event stream when\n`stream=true`.",
+	Usage:   "Retrieve the current worker state and messages from its most recent task (or a\nspecific task via `taskId`).",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
@@ -65,9 +65,9 @@ var workersRetrieve = cli.Command{
 			PathParam: "workerId",
 		},
 		&requestflag.Flag[string]{
-			Name:      "stream",
-			Usage:     `Set to "true" to receive a server-sent event stream that replays all stored messages and then continues with live chunks from the active task (if any) before closing.`,
-			QueryPath: "stream",
+			Name:      "task-id",
+			Usage:     "Return the worker state and messages for a specific task instead of the most recent one.",
+			QueryPath: "taskId",
 		},
 	},
 	Action:          handleWorkersRetrieve,

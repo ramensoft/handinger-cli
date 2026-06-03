@@ -16,7 +16,7 @@ import (
 
 var tasksCreate = cli.Command{
 	Name:    "create",
-	Usage:   "Run a new task against an existing worker. Send a `taskId` of a prior task to\nadd a follow-up turn instead of starting a fresh task. Send\n`multipart/form-data` to attach files; the bytes are bootstrapped into the\nworker's workspace before the task starts.",
+	Usage:   "Run a new task against an existing worker and wait for the result. Send a\n`taskId` of a prior task to add a follow-up turn instead of starting a fresh\ntask. Send `multipart/form-data` to attach files; the bytes are bootstrapped\ninto the worker's workspace before the task starts. The task runs to completion\non the server even if the connection drops; subscribe to task webhooks for\nlong-running tasks.",
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
@@ -29,12 +29,6 @@ var tasksCreate = cli.Command{
 			Usage:    "Compute budget the worker is allowed to spend on the task. Defaults to `standard`.",
 			Default:  "standard",
 			BodyPath: "budget",
-		},
-		&requestflag.Flag[bool]{
-			Name:     "stream",
-			Usage:    "Stream the response as server-sent events instead of waiting for the final payload.",
-			Default:  false,
-			BodyPath: "stream",
 		},
 		&requestflag.Flag[string]{
 			Name:     "task-id",
