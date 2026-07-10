@@ -126,6 +126,7 @@ func init() {
 					&tasksCreate,
 					&tasksRetrieve,
 					&tasksDelete,
+					&tasksListTurns,
 				},
 			},
 			{

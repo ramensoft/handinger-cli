@@ -60,3 +60,15 @@ func TestTasksDelete(t *testing.T) {
 		)
 	})
 }
+
+func TestTasksListTurns(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
+	t.Run("regular flags", func(t *testing.T) {
+		mocktest.TestRunMockTestWithFlags(
+			t,
+			"--api-key", "string",
+			"tasks", "list-turns",
+			"--task-id", "tsk_01HZY31W2SZJ8MJ2FQTR3M1K9D",
+		)
+	})
+}

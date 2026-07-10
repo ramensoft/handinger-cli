@@ -1,4 +1,4 @@
-configured_endpoints: 16
-openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/ramensoft-sl/handinger-034ace64d5b2af768bdbfc52802544e02ed64d93939ef5161dec6b4082ab8c46.yml
-openapi_spec_hash: a42a60ceee07ab96c8ad8816d1094901
-config_hash: 3a000b7894f3a2704ba83d0a9a6aec34
+configured_endpoints: 17
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/ramensoft-sl/handinger-1ac2e9adb727359aff025779c53484911065352b6a3537a76ef0ba76bd7361cb.yml
+openapi_spec_hash: f7c16dbada0bf86186ad7667ae436b42
+config_hash: cf51a9b4a224dc9aace98d3688838817
